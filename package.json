@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/abdinasir1993/README-generator/issues"
   },
-  "homepage": "https://github.com/abdinasir1993/README-generator#readme"
+  "homepage": "https://github.com/abdinasir1993/README-generator#readme",
+  "dependencies": {
+    "inquirer": "^9.0.0"
+  }
 }
