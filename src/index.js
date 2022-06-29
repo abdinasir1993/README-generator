@@ -1,5 +1,9 @@
-import inquirer from 'inquirer';
+// import inquirer and fs
 
+import inquirer from 'inquirer';
+import fs from 'fs';
+
+// questions that will be asked
 const questions = [
   {
     type: 'input',
@@ -7,7 +11,7 @@ const questions = [
     name: 'title',
   },
   {
-    type: 'list',
+    type: 'checkbox',
     message: 'please select the content that will go in your readme',
     name: 'content',
     choices: [
@@ -34,6 +38,7 @@ const questions = [
     type: 'input',
     message: 'what is the installation process of your project?',
     name: 'installation',
+    when: (answers) => answers.confirmInstallation === true,
   },
   {
     type: 'confirm',
@@ -44,6 +49,7 @@ const questions = [
     type: 'input',
     message: 'what is the application required for your project?',
     name: 'usage',
+    when: (answers) => answers.confirmUsage === true,
   },
   {
     type: 'confirm',
@@ -55,6 +61,7 @@ const questions = [
     message: 'what is the license for your project?',
     name: 'license',
     choices: ['MIT', 'apache', 'GNU general public', 'Boost Software'],
+    when: (answers) => answers.confirmLicense === true,
   },
   {
     type: 'input',
@@ -77,8 +84,64 @@ const questions = [
     name: 'installation',
   },
 ];
+// function to ask questions
 const init = async () => {
   const answers = await inquirer.prompt(questions);
   console.log(answers);
+  // call function to generate readme
+  const generatedReadmeMD = generatedMD(answers);
+  fs.writeFileSync('./generated.md', generatedReadmeMD);
+};
+const generatedMD = (answers) => {
+  return `#${answers.title} ![${answers.license}](https://img.shields.io/badge/${answers.license}-License-green)
+
+  ## Table of Contents
+  
+  - [Description](#description)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [License](#license)
+  - [Contributing](#contributing)
+  - [Tests](#tests)
+  - [Questions](#questions)
+  
+  ## Description
+  
+  ${answers.description}
+  
+  ## Installation
+  
+  Please follow the instructions below:
+  
+ 
+  ${answers.installation}
+ 
+  
+  ## Usage
+  
+  Please follow the instructions below:
+  
+  
+  ${answers.usage}
+ 
+  
+  ## License
+  
+  MIT License
+  
+  ## Tests
+  
+  Please follow the instructions below:
+  
+  
+ ${answers.usage}
+  
+  
+  ## Questions
+  
+  Please contact me on my email:${answers.email}
+  
+  Visit my GitHub profile [here](${answers.github})
+  `;
 };
 init();
