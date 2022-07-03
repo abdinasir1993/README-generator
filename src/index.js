@@ -57,7 +57,7 @@ const questions = [
     name: 'confirmLicense',
   },
   {
-    type: 'choice',
+    type: 'list',
     message: 'what is the license for your project?',
     name: 'license',
     choices: ['MIT', 'apache', 'GNU general public', 'Boost Software'],
@@ -88,22 +88,23 @@ const questions = [
 const init = async () => {
   const answers = await inquirer.prompt(questions);
   console.log(answers);
+  const contents = answers.content;
+  const generateContent = contents
+    .map((content) => {
+      return `- [${content}](#${content})
+    `;
+    })
+    .join('');
   // call function to generate readme
-  const generatedReadmeMD = generatedMD(answers);
+  const generatedReadmeMD = generatedMD(answers, generateContent);
   fs.writeFileSync('./generated.md', generatedReadmeMD);
 };
-const generatedMD = (answers) => {
-  return `#${answers.title} ![${answers.license}](https://img.shields.io/badge/${answers.license}-License-green)
+const generatedMD = (answers, generateContent) => {
+  return `# ${answers.title} ![${answers.license}](https://img.shields.io/badge/${answers.license}-License-green)
 
   ## Table of Contents
   
-  - [Description](#description)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [License](#license)
-  - [Contributing](#contributing)
-  - [Tests](#tests)
-  - [Questions](#questions)
+ ${generateContent}
   
   ## Description
   
