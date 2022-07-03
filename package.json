@@ -1,0 +1,27 @@
+{
+  "name": "readme-generator",
+  "version": "1.0.0",
+  "description": "Quickly and easily create a README file by using a command-line application to generate one.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdinasir1993/README-generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abdinasir1993/README-generator/issues"
+  },
+  "homepage": "https://github.com/abdinasir1993/README-generator#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "inquirer": "^9.0.0",
+    "jest": "^28.1.2",
+    "node-fetch": "^2.6.6"
+  },
+  "type": "module"
+}
